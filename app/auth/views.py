@@ -7,10 +7,10 @@ from .forms import RegistrationForm, LoginForm
 @auth.route("/login")
 def login():
     form = LoginForm()
-    return render_template('login.html', title='login', form=form)
+    return render_template('auth/login.html', title='login', form=form)
 
-    
+
 @auth.route("/register")
 def register():
-    form = RegistrationForm(0)
-    return render_template('register.html', title='Register', form=form)
+    form = RegistrationForm()
+    return render_template('auth/register.html', title='Register', form=form)

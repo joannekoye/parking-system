@@ -1,9 +1,11 @@
 from flask import Flask
 from config import config_options
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 
 
 db = SQLAlchemy()
+bootstrap = Bootstrap()
 # from app.models import User
 
 # create an application factory
@@ -26,11 +28,12 @@ def create_app(config_name):
 
     # initialiaze the database
     db.init_app(app)
+    #initializing bootstrap
+    bootstrap.init_app(app)
 
     # register your blueprints here
     from app.main import main
     from app.auth import auth
-    
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
