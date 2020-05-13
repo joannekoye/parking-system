@@ -2,10 +2,12 @@ from flask import Flask
 from config import config_options
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
+from flask_bcrypt import Bcrypt
 
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
+bcrypt = Bcrypt()
 # from app.models import User
 
 # create an application factory
@@ -30,6 +32,8 @@ def create_app(config_name):
     db.init_app(app)
     #initializing bootstrap
     bootstrap.init_app(app)
+    #initializing bcrypt
+    bcrypt.init_app(app)
 
     # register your blueprints here
     from app.main import main
