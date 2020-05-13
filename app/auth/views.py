@@ -6,4 +6,11 @@ from .forms import RegistrationForm, LoginForm
 
 @auth.route("/login")
 def login():
-    return "<h1>You are now logged in</h1>"
+    form = LoginForm()
+    return render_template('login.html', title='login', form=form)
+
+    
+@auth.route("/register")
+def register():
+    form = RegistrationForm(0)
+    return render_template('register.html', title='Register', form=form)
