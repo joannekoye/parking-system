@@ -1,0 +1,7 @@
+{% macro errors(errors) %}
+{% for error in errors %}
+    <p class="position-absolute ext-danger font-weight-bold">
+        {{error}}
+    </p>
+{% endfor %}
+{% endmacro %}
