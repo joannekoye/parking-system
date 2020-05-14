@@ -1,1 +1,16 @@
 {% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid ">
+    <div class="row min-vh-90 flex-column justify-content-center align-items-center" id="landing">
+        <div class="landing-info">
+            <h1>Welcome to P-Zone</h1>
+        </div>
+        <div class="btn-group text-center">
+            <a href="{{url_for('auth.register')}}" class="btn btn-success btn-lg">SIGN UP</a>
+            <a href="{{url_for('auth.login')}}" class="btn btn-success btn-lg">SIGN IN</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

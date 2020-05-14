@@ -69,3 +69,11 @@ body{
 .booked .indicator{
     background: #ff0544;
 }
+
+
+#landing {
+    background: url('../images/landing.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

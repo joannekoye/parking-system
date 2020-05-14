@@ -1,14 +1,33 @@
-from app import db
+from app import db,login_manager
 from datetime import datetime
-class User(db.Model):
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+@login_manager.user_loader
+def user_loader(user_id):
+    return User.query.get(user_id)
+
+class User(db.Model,UserMixin):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     role = db.Column(db.String(), default='user', nullable=False)
     image_file = db.Column(db.String(), default='default.jpeg', nullable=False)
-    password = db.Column(db.String(), default='default.jpeg', nullable=False)
+    password_hash = db.Column(db.String(), default='default.jpeg', nullable=False)
     user = db.relationship('Insights', backref='user', lazy='dynamic')
+
+    @property
+    def password(self):
+        raise AttributeError('You cannnot read the password attribute')
+
+    @password.setter
+    def password(self, password_raw):
+        self.password_hash = generate_password_hash(password_raw)
+
+    def verify_password(self, password_raw):
+        return check_password_hash(self.password_hash, password_raw)
+
 
 class Institution(db.Model):
     __tablename__='institutions'
@@ -60,5 +79,9 @@ class Insights(db.Model):
     @classmethod
     def get_from_institution(cls,institution_id):
         return Insights.query.filter_by(institution_id=institution_id).order_by(Insights.time_in.asc()).all()
+
+    @classmethod
+    def get_for_user(cls,user_id):
+        return Insights.query.filter_by(user_id=user_id).order_by(Insights.time_in.asc()).all()
 
     
