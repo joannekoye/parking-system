@@ -3,7 +3,7 @@ export DATABASE_URL="insert your db url"
 python3.6 manage.py server
 
 
-app/__init__.py
+
 app/auth/forms.py
 app/auth/views.py
 app/models.py
