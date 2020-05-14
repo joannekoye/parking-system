@@ -59,7 +59,6 @@ class Lot(db.Model):
                 lot_item = Lot(name=lot_name,institution_id=institution_id.id)
                 db.session.add(lot_item)
                 db.session.commit()
-
     def get_from_institution(id):
         return Lot.query.filter_by(institution_id=id).order_by(Lot.name).all()
 

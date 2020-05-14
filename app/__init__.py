@@ -39,7 +39,6 @@ def create_app(config_name):
     login_manager.init_app(app)
 
     # register your blueprints here
-
     from app.auth import auth as auth_blueprint
     from app.main import main as main_blueprint
     from .parking import parking as parking_blueprint

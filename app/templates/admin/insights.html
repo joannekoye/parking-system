@@ -1,0 +1,23 @@
+{% extends 'admin/dashboard.html' %}
+{% import 'admin/macros.html' as macro with context %}
+
+{% block middle %}
+<div class="table-responsive">
+    <h3>Insights | </h3>
+    <table class="table bg-fDark table-sm text-white">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>LotName</th>
+                <th>User</th>
+                <th>Car No.</th>
+                <th>TimeIn</th>
+                <th>TimeOut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{macro.insight_rows(insights)}}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

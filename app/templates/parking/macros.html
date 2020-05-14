@@ -1,0 +1,53 @@
+{% macro display_institutions(institutions) %}
+    {% for institution in institutions %}
+    <div class="col-md-4 col-sm-6 col-lg-3 p-2">
+        <div class="card bg-fDark">
+            <img src="{{url_for('static', filename='images/lots/lot-default.jpg')}}" class="card-img-top">
+            <div class="card-body py-1">
+                <div class="card-title">
+                    <h4 class="text-capitalize">{{institution.name}}</h4>
+                </div>
+                <a href="{{url_for('parking.institution', institution_id=institution.id)}}" class="btn btn-sm bg-prim">Book Here</a>
+            </div>
+            <div class="card-footer small">
+                Capacity: {{institution.quantity}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro display_insights(insights)%}
+{% if insights %}
+    {% for insight in insights %}
+    <tr>
+        <td>{{insight.id}}</td>
+        <td>{{insight.lot.name}}</td>
+        <td>{{insight.number_plate}}</td>
+        <td>{{dates_(insight.time_in)}}</td>
+        <td>{{dates_(insight.time_in)}}</td>
+        <td>{{check_state(insight.time_out,insight.id)}}</td>
+    </tr>
+    {% endfor %}
+{% endif %}
+
+{% endmacro %}
+
+{% macro dates_(date) %}
+    {% if date %}
+        {{ '{:%d %b %Y %H:%m}'.format(date) }}
+    {% else %}
+
+    N/A
+    {% endif %}
+{% endmacro %}
+
+
+{% macro check_state(date,insight) %}
+    {% if date %}
+        <a href="#" class="btn btn-sm btn-success">Released</a>
+    {% else %}
+    <a href="{{url_for('parking.release', insight_id=insight)}}" class="btn btn-sm btn-info">Release</a>
+    {% endif %}
+{% endmacro %}
