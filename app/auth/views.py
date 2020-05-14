@@ -4,6 +4,7 @@ from ..models import User
 from .forms import RegistrationForm, LoginForm
 from .. import db
 from flask_login import login_user, current_user, logout_user, login_required
+from ..email import mail_message
 
 @auth.route("/login", methods=['GET','POST'])
 def login():
@@ -31,6 +32,9 @@ def register():
         new_user = User(username=form.username.data, email= form.email.data, password=form.password.data)
         db.session.add(new_user)
         db.session.commit()
+
+        mail_message("Welcome to Parking System","email/welcome_user",new_user.email,user=new_user)
+
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
@@ -45,3 +49,13 @@ def logout():
 def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('auth/account.html', title='Account', image_file=image_file)
+
+@auth.route('/make_me_admin')
+@login_required
+def make_me_admin():
+    user = User.query.get(current_user.id)
+    user.role = 'admin'
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for('admin.index'))

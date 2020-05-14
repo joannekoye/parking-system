@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_marshmallow import Marshmallow
 from flask_login import LoginManager
+from flask_mail import Mail
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
@@ -12,6 +13,7 @@ login_manager.session_protection='strong'
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 ma = Marshmallow()
+mail = Mail()
 # from app.models import User
 
 # create an application factory
@@ -37,6 +39,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     ma.init_app(app)
     login_manager.init_app(app)
+    mail.init_app(app)
 
     # register your blueprints here
     from app.auth import auth as auth_blueprint
