@@ -35,8 +35,8 @@ class TestConfig(Config):
     DEBUG=True
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI =os.getenv('DATABASE_URL')
-    DEBUG=False
+    pass
+    
 
 
 config_options = {
