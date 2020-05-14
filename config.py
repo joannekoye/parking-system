@@ -8,8 +8,7 @@ class Config:
     '''
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://alex:alex@localhost/tests'
-    # SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 
 

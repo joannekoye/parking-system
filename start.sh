@@ -1,4 +1,3 @@
-export SECRET_KEY=b45f6995f33263289e9602b28ae58ca4
-
-
+export SECRET_KEY="insert secret key"
+export DATABASE_URL="insert your db url"
 python3.6 manage.py server
