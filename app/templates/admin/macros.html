@@ -18,12 +18,22 @@
 {% endmacro %}
 
 {% macro insight_rows(insights) %}
+{% for insight in insights %}
 <tr>
-    <td>1,001</td>
-    <td>Lorem</td>
-    <td>ipsum</td>
-    <td>dolor</td>
-    <td>sit</td>
-    <td>mas</td>
+    <td>{{insight.id}}</td>
+    <td>{{insight.lot.name}}</td>
+    <td>{{insight.user.username}}</td>
+    <td>{{insight.number_plate}}</td>
+    <td>{{dates_(insight.time_in)}}</td>
+    <td>{{dates_(insight.time_out)}}</td>
 </tr>
+{% endfor %}
+{% endmacro %}
+
+{% macro dates_(date) %}
+{% if date %}
+    {{ '{:%d %b %Y %H:%m}'.format(date) }}
+{% else %}
+N/A
+{% endif %}
 {% endmacro %}

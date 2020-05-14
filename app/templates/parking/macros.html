@@ -7,7 +7,7 @@
                 <div class="card-title">
                     <h4 class="text-capitalize">{{institution.name}}</h4>
                 </div>
-                <a href="{{url_for('parking.institution', id=institution.id)}}" class="btn btn-sm bg-prim">Book Here</a>
+                <a href="{{url_for('parking.institution', institution_id=institution.id)}}" class="btn btn-sm bg-prim">Book Here</a>
             </div>
             <div class="card-footer small">
                 Capacity: {{institution.quantity}}

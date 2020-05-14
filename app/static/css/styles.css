@@ -24,7 +24,6 @@ body{
 
 
 .shadeIt{
-    transition: all .5s;
     border: 2px solid #d3bb04;
     border-radius: 4px;
     background: repeating-linear-gradient(45deg,
@@ -47,7 +46,26 @@ body{
 
 .fC-tr{
     background: transparent !important;
+    color: rgba(255, 255, 255, 0.87) !important;
 }
 .min-vh-90 {
     min-height: 90vh;
+}
+.available{
+    cursor: pointer;
+}
+.booked {
+    pointer-events: none;
+    cursor:not-allowed;
+}
+.indicator{
+    width: 20px; display: block;
+    height: 20px; position: absolute;
+    border-radius: 50%;
+}
+.available .indicator{
+    background: #00ff37;
+}
+.booked .indicator{
+    background: #ff0544;
 }

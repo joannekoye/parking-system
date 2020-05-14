@@ -1,7 +1,7 @@
 from . import admin
 from flask import url_for,render_template,redirect,request
 from .forms import InstitutionForm
-from ..models import Institution,Lot
+from ..models import Institution,Lot,Insights
 from app import db
 @admin.route('/')
 def index():
@@ -16,7 +16,8 @@ def new_institution():
 
 @admin.route('/insights/institution_<int:institution_id>')
 def insights(institution_id):
-    return render_template('admin/insights.html')
+    insights = Insights.get_from_institution(institution_id)
+    return render_template('admin/insights.html', insights=insights)
 
 
 @admin.route('/new_institution', methods=['GET','POST'])

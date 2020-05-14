@@ -3,8 +3,12 @@ from datetime import datetime
 class User(db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key=True)
-    role = db.Column(db.String(), default='user')
-    insights = db.relationship('Insights', backref='session', lazy='dynamic')
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    role = db.Column(db.String(), default='user', nullable=False)
+    image_file = db.Column(db.String(), default='default.jpeg', nullable=False)
+    password = db.Column(db.String(), default='default.jpeg', nullable=False)
+    user = db.relationship('Insights', backref='user', lazy='dynamic')
 
 class Institution(db.Model):
     __tablename__='institutions'
@@ -13,7 +17,7 @@ class Institution(db.Model):
     name = db.Column(db.String())
     active = db.Column(db.String(),default='true')
     quantity = db.Column(db.Integer,default=8)
-    lot_details = db.relationship('Lot', backref='lot_dets',lazy='dynamic')
+    lot_details = db.relationship('Lot', backref='lot_detail',lazy='dynamic')
 
     def get_all():
         return Institution.query.all()
@@ -23,9 +27,9 @@ class Lot(db.Model):
     __tablename__='lots'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    user_id_in = db.Column(db.Integer)
-    institution_id = db.Column(db.Integer, db.ForeignKey('institutions.id'))
-    session_id_in = db.Column(db.Integer, db.ForeignKey('insights.id'))
+    user_id_in = db.Column(db.Integer, db.ForeignKey('users.id'))
+    institution_id = db.Column(db.Integer, db.ForeignKey('institutions.id', ondelete='CASCADE'))
+    lot = db.relationship('Insights', backref='lot', lazy='dynamic')
 
     @classmethod
     def create_lots(cls,tag_name,quantity):
@@ -38,7 +42,7 @@ class Lot(db.Model):
                 db.session.commit()
         
     def get_from_institution(id):
-        return Lot.query.filter_by(institution_id=id).all()
+        return Lot.query.filter_by(institution_id=id).order_by(Lot.name).all()
 
     def __repr(self):
         return self
@@ -52,5 +56,9 @@ class Insights(db.Model):
     number_plate = db.Column(db.String(), nullable=False)
     time_in = db.Column(db.DateTime(),default=datetime.utcnow)
     time_out = db.Column(db.DateTime())
+
+    @classmethod
+    def get_from_institution(cls,institution_id):
+        return Insights.query.filter_by(institution_id=institution_id).order_by(Insights.time_in.asc()).all()
 
     

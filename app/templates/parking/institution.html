@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <form action="" method="POST" class="form-inline p-2">
+    <form action="" method="POST" class="p-2">
         <div class="btn-group">
-            <input type="text" placeholder="Click on an available lot" class="form-control border-info fC-tr">
+            <input type="text" class="btn btn-info" placeholder="Click on an available lot" id="lot_field" name='lot_name' readonly required>
+            <input type="text" class="btn border-info fC-tr" placeholder="Number Plate" name='number_plate' required>
             <button class="btn btn-sm btn-info">Book</button>
         </div>
     </form>
-    <div class="row lot-floor">
+    <div class="row lot-floor  no-gutters text-center">
         <div class="col-sm-4">
             <div class="row  leftLots">
-
+                Loading...
             </div>
         </div>
         <div class="col-sm-4 card bg-fDark shadeIt">
@@ -19,7 +20,7 @@
             </span>
         </div>
         <div class="col-sm-4 rightLots">
-          
+            Loading...
         </div>
     </div>
 </div>
@@ -30,18 +31,44 @@
 <script>
     $(document).ready(function () {
         var data = []
+        var check_status = function (lot_item) {
+            if (lot_item.user_id_in) {
+                return 'booked'
+            } else {
+                return 'available'
+            }
+        }
+
+        let click_handler = function () {
+            $('.lot').click(function () {
+                clicked = $(this).attr('id')
+                if ($('#' + clicked).hasClass('available')) {
+                    $('#lot_field').val(clicked)
+                }
+            })
+        }
+        let validator_ = function () {
+            current_val = $('#lot_field').val()
+            has_class = $('#' + current_val).hasClass('available')
+            if (!has_class) {
+                $('#lot_field').val('')
+            }
+        }
+
         var process_lots = function () {
             left_lots = data.slice(0, data.length / 2)
-            left_lots_str=''
+            left_lots_str = ''
             right_lots = data.slice(data.length / 2, data.length)
-            right_lots_str=''
+            right_lots_str = ''
 
             left_lots.forEach(function (left_lot) {
                 // append lots
-                left_lots_str=left_lots_str+
-                    `<div class="col-sm-12">
+                left_lots_str = left_lots_str +
+                    `<div class="col-sm-12 lot ${check_status(left_lot)}" id='${left_lot.name}'>
                         <div class="border-bottom p-3">
-                            <h4>${left_lot.name}</h4>
+                            <h4>${left_lot.name}
+                                <span class='indicator'></span>
+                            </h4>
                         </div>
                     </div>`
             })
@@ -49,16 +76,20 @@
 
             right_lots.forEach(function (right_lot) {
                 // append lots
-                right_lots_str=right_lots_str+
-                    `<div class="col-sm-12">
+
+                right_lots_str = right_lots_str +
+                    `<div class="col-sm-12 lot ${check_status(right_lot)}" id='${right_lot.name}'>
                         <div class="border-bottom p-3">
-                            <h4>${right_lot.name}</h4>
+                            <h4>${right_lot.name}
+                                <span class='indicator'></span>
+                            </h4>
                         </div>
                     </div>`
             })
             $('.rightLots').html(right_lots_str)
-
+            click_handler()
         }
+
         var endpoint = "{{url_for('parking.lots_of', institution_id=institution_id)}}"
         var get = function () {
             $.ajax({
@@ -67,13 +98,13 @@
                 success: function (response) {
                     data = response;
                     process_lots()
-                    // console.log(data)
+                    console.log(data)
                 }, error: () => { console.log('error') }
             })
         };
         setInterval(() => {
             get()
-            $('.leftLots').html()
+            validator_()
 
         }, 7000);
 
