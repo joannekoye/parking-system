@@ -15,8 +15,6 @@ ma = Marshmallow()
 # from app.models import User
 
 # create an application factory
-
-
 def create_app(config_name):
     """
     creates an instances of the application 
@@ -31,7 +29,9 @@ def create_app(config_name):
 
     # set the configurations
     app.config.from_object(config_options[config_name])
-
+    
+    
+    
     # initialiaze the database
     db.init_app(app)
     bootstrap.init_app(app)
@@ -39,14 +39,13 @@ def create_app(config_name):
     login_manager.init_app(app)
 
     # register your blueprints here
-    # from app.main import main as main_blueprint
     from app.auth import auth as auth_blueprint
     from app.main import main as main_blueprint
     from .parking import parking as parking_blueprint
     from .admin import admin as admin_blueprint
-    
-  
-    # app.register_blueprint(main_blueprint)
+
+
+
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(parking_blueprint,url_prefix='/parking')

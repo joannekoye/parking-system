@@ -59,7 +59,6 @@ class Lot(db.Model):
                 lot_item = Lot(name=lot_name,institution_id=institution_id.id)
                 db.session.add(lot_item)
                 db.session.commit()
-        
     def get_from_institution(id):
         return Lot.query.filter_by(institution_id=id).order_by(Lot.name).all()
 
@@ -83,5 +82,3 @@ class Insights(db.Model):
     @classmethod
     def get_for_user(cls,user_id):
         return Insights.query.filter_by(user_id=user_id).order_by(Insights.time_in.asc()).all()
-
-    

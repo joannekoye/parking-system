@@ -21,9 +21,8 @@ class RegistrationForm(FlaskForm):
                 raise ValidationError('Email already registered.') 
 
 
-    
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Required(),Email()])
     password = PasswordField('Password', validators=[Required()])
     remember =BooleanField('Remember Me')
-    submit = SubmitField('Login')
+    submit = SubmitField('Login') 

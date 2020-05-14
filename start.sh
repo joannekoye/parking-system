@@ -1,3 +1,14 @@
-export SECRET_KEY=asdasd
+export SECRET_KEY="insert secret key"
+export DATABASE_URL="insert your db url"
+python3.6 manage.py server
 
-python3 manage.py server
+
+
+
+
+
+
+
+
+
+
