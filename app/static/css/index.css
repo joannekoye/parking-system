@@ -1,3 +1,82 @@
+body{
+    color: rgba(255, 255, 255, .87);
+    background: #121212;
+}
+.bg-fDark{
+    background: #202020;
+}
+.bg-prim{
+    color: rgba(255, 255, 255, .87) !important;
+    background: #7b0599;
+}
+.bg-dan{
+    color: rgba(255, 255, 255, .87) !important;
+    background: #CF6679;
+}
+
+.lot-floor{
+    background-image: url('../images/texture.jpg') ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 10px solid #d3bb04;
+}
+
+
+.shadeIt{
+    border: 2px solid #d3bb04;
+    border-radius: 4px;
+    background: repeating-linear-gradient(45deg,
+  #00000000,
+  #00000036 15px,
+  #d3bb04 0,
+  #d3bb04 40px);
+  display: flex;
+   justify-content: center; align-items: center;
+}
+
+.shadeIt span{
+    font-size:40px;
+    color: #fff;
+    font-weight: 900;
+    text-shadow: 2px 2px 2px #000;
+    text-transform: uppercase;
+    writing-mode: vertical-lr   
+}
+
+.fC-tr{
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+}
+.min-vh-90 {
+    min-height: 90vh;
+}
+.available{
+    cursor: pointer;
+}
+.booked {
+    pointer-events: none;
+    cursor:not-allowed;
+}
+.indicator{
+    width: 20px; display: block;
+    height: 20px; position: absolute;
+    border-radius: 50%;
+}
+.available .indicator{
+    background: #00ff37;
+}
+.booked .indicator{
+    background: #ff0544;
+}
+
+
+#landing {
+    background: url('../images/landing.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+} 
 .content-section{
     padding:10px 20px;
     border:3px solid #dddddd;

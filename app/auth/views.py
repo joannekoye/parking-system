@@ -2,20 +2,20 @@ from . import auth
 from flask import render_template, redirect, url_for, flash, request
 from ..models import User
 from .forms import RegistrationForm, LoginForm
-from .. import db, bcrypt
+from .. import db
 from flask_login import login_user, current_user, logout_user, login_required
 
 @auth.route("/login", methods=['GET','POST'])
 def login():
-    if current_user. is_authenticated:
-        return redirect(url_for('main.index'))
+    if current_user.is_authenticated:
+        return redirect(url_for('parking.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user=User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.index'))
+            return redirect(next_page) if next_page else redirect(url_for('parking.home'))
             flash('You have been logged in!, success')
         else:
             flash('Login Unsuccessful. Please Check username and password', 'danger')
@@ -24,12 +24,11 @@ def login():
 
 @auth.route("/register",methods=['GET','POST'])
 def register():
-    if current_user. is_authenticated:
-        return redirect(url_for('main.index'))
+    if current_user.is_authenticated:
+        return redirect(url_for('parking.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, email= form.email.data, password=hashed_password)
+        new_user = User(username=form.username.data, email= form.email.data, password=form.password.data)
         db.session.add(new_user)
         db.session.commit()
         flash(f'Account created for {form.username.data}!', 'success')
