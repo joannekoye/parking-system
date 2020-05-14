@@ -48,3 +48,6 @@ body{
 .fC-tr{
     background: transparent !important;
 }
+.min-vh-90 {
+    min-height: 90vh;
+}

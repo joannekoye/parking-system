@@ -1,6 +1,6 @@
-{% macro display_institutions(institutios)%}
+{% macro display_institutions(institutions) %}
     {% for institution in institutions %}
-    <div class="col-md-4 col-sm-6 col-lg-3">
+    <div class="col-md-4 col-sm-6 col-lg-3 p-2">
         <div class="card bg-fDark">
             <img src="{{url_for('static', filename='images/lots/lot-default.jpg')}}" class="card-img-top">
             <div class="card-body py-1">
@@ -8,6 +8,9 @@
                     <h4 class="text-capitalize">{{institution.name}}</h4>
                 </div>
                 <a href="{{url_for('parking.institution', id=institution.id)}}" class="btn btn-sm bg-prim">Book Here</a>
+            </div>
+            <div class="card-footer small">
+                Capacity: {{institution.quantity}}
             </div>
         </div>
     </div>

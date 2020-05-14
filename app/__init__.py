@@ -2,9 +2,11 @@ from flask import Flask
 from config import config_options
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
+ma = Marshmallow()
 # from app.models import User
 
 # create an application factory
@@ -28,6 +30,7 @@ def create_app(config_name):
     # initialiaze the database
     db.init_app(app)
     bootstrap.init_app(app)
+    ma.init_app(app)
 
     # register your blueprints here
     # from app.main import main as main_blueprint
@@ -35,7 +38,7 @@ def create_app(config_name):
     from .parking import parking as parking_blueprint
     from .admin import admin as admin_blueprint
     
-
+  
     # app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(parking_blueprint)

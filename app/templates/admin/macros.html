@@ -1,0 +1,29 @@
+{% macro display_institutions(institutions) %}
+{% for institution in institutions %}
+<div class="col-md-4 col-sm-6 col-lg-3 p-2">
+    <div class="card bg-fDark">
+        <img src="{{url_for('static', filename='images/lots/lot-default.jpg')}}" class="card-img-top">
+        <div class="card-body py-1">
+            <div class="card-title">
+                <h4 class="text-capitalize">{{institution.name}}</h4>
+            </div>
+            <a href="{{url_for('admin.insights', institution_id=institution.id)}}" class="btn btn-sm bg-prim">View Insights</a>
+        </div>
+        <div class="card-footer small">
+            Capacity: {{institution.quantity}}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endmacro %}
+
+{% macro insight_rows(insights) %}
+<tr>
+    <td>1,001</td>
+    <td>Lorem</td>
+    <td>ipsum</td>
+    <td>dolor</td>
+    <td>sit</td>
+    <td>mas</td>
+</tr>
+{% endmacro %}
