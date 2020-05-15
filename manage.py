@@ -4,7 +4,7 @@ from app import create_app, db
 from app.models import Institution,User
 
 
-app = create_app('development')
+app = create_app('production')
 
 manager = Manager(app)
 manager.add_command('server', Server)
