@@ -5,7 +5,7 @@ import os
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI =os.getenv('HEROKU_POSTGRESQL_BROWN_URL')
+    SQLALCHEMY_DATABASE_URI =os.getenv('DATABASE_URL')
     # simplemde conf
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
