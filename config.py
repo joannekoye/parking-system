@@ -35,7 +35,7 @@ class TestConfig(Config):
     DEBUG=True
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI =os.getenv('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI =os.getenv('HEROKU_POSTGRESQL_BROWN_URL')
     DEBUG=False
     
 
